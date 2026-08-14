@@ -13,18 +13,32 @@
  */
 
 ///JSX:lot of people thning react is only return using jsx: are make are life are easy when we have to create tag
-const parent=React.createElement("div",
-  {id:"parent"},[
-  React.createElement("div",{id:"child"},[
-    React.createElement("h1",{},"i am h1 tage"),
-    React.createElement("h2",{},"i am an h2 tag in"),
-  ]),
-  React.createElement("div",{id:"child2"},[
-    React.createElement("h1",{},"i am h1 tage"),
-    React.createElement("h2",{},"i am an h2 tag in"),
-  ])
-]);
 
+import React from "react";
+import ReactDOM from "react-dom/client";
+const parent = React.createElement(
+  "div",
+  { id: "parent" },
+  [
+    React.createElement(
+      "div",
+      { id: "child", key: "child1" },
+      [
+        React.createElement("h1", { key: "heading1" }, "i am h1 tag"),
+        React.createElement("h2", { key: "heading2" }, "i am an h2 tag")
+      ]
+    ),
+
+    React.createElement(
+      "div",
+      { id: "child2", key: "child2" },
+      [
+        React.createElement("h1", { key: "heading3" }, "i am h1 tag"),
+        React.createElement("h2", { key: "heading4" }, "i am an h2 tag")
+      ]
+    )
+  ]
+);
 
 
 
