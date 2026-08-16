@@ -1,0 +1,23 @@
+# Namaste-React
+
+## parcel:
+- Devbuild
+- local Server
+-HMR=Hot module Replacement
+-file Watching Algorithm- writeen in c++ // upadate automatically
+-Chaching=FAster builds
+-Image optimazation
+-minification
+-Bundling
+-Compress
+-consistent Hashing
+-Code Splitting
+-Differntial Bundling -support older browsers
+-Error handling
+-Diagostic=error give me very colorful
+-HTTPS
+-Tree shanking -remove unused code
+-different dev and production bundles.
+-npm start means u r calling npm start behing the seen calling parser
+-npm start=npm run start
+-npm run built
