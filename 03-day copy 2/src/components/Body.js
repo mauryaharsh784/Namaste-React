@@ -5,9 +5,10 @@ import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [searchText,setSearchText]=useState("");
- console.log("body render");
- 
+  const [searchText, setSearchText] = useState("");
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  console.log("body render");
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -30,7 +31,11 @@ const Body = () => {
       )
       .map((card) => card.card.card);
 
+    //roginal show all restro:
     setListOfRestaurants(restaurants);
+
+    // Initially show all restaurants
+    setFilteredRestaurant(restaurants);
   };
 
   // ✅ Loading screen....
@@ -39,7 +44,9 @@ const Body = () => {
   //   return <Shimmer/>;
   // }
 
-  return (listOfRestaurants.length === 0) ?<Shimmer/>:(
+  return listOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="filter">
         <div className="search">
@@ -47,16 +54,36 @@ const Body = () => {
             type="text"
             className="search-box"
             value={searchText}
-             onChange={(e) =>{ setSearchText(e.target.value)
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
 
-             }}
-            />
-          <button onClick={() =>{
-            //filter the restorrant data:
+          <button
+            onClick={() => {
+              //filter the restorrant data:
+              //SarchText
 
+              // int this only search the lower case latter
+              // const  fiteredRestaurant=listOfRestaurants.filter((res) => res.info.name.includes(searchText)
+
+              if (searchText.trim() === "") {
+                setFilteredRestaurant(listOfRestaurants);
+                return;
+              }
+
+              // Search from ORIGINAL restaurant list
+              const filteredRestaurant = listOfRestaurants.filter((res) =>
+              res.info.name.toLowerCase().includes(searchText.toLowerCase())
+             );
+
+            setFilteredRestaurant(filteredRestaurant);
           }}
-          >Search</button>
+          >
+            Search
+          </button>
         </div>
+
         <button
           className="filter-btn"
           onClick={() => {
@@ -64,7 +91,7 @@ const Body = () => {
               (res) => res.info.avgRating > 4
             );
 
-            setListOfRestaurants(filteredList);
+            setFilteredRestaurant(filteredList);
           }}
         >
           Top Rated Restaurants
@@ -72,7 +99,7 @@ const Body = () => {
       </div>
 
       <div className="res-container">
-        {listOfRestaurants.map((restaurant, index) => (
+        {filteredRestaurant.map((restaurant, index) => (
           <RestroCard
             key={`${restaurant.info.id}-${index}`}
             resData={restaurant}
@@ -82,4 +109,5 @@ const Body = () => {
     </div>
   );
 };
+
 export default Body;
