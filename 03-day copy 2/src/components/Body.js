@@ -1,13 +1,14 @@
 import RestroCard from "./RestroCard";
-import resList from "../utills/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utills/useOnlineStatus";
+
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  console.log("body render");
+  //console.log("body render");
 
   useEffect(() => {
     fetchData();
@@ -22,6 +23,8 @@ const Body = () => {
     );
 
     const json = await data.json();
+    console.log("Swiggy API Response:", json);
+    
 
     const restaurants = json.data.cards
       .filter(
@@ -30,14 +33,19 @@ const Body = () => {
           "type.googleapis.com/swiggy.presentation.food.v2.Restaurant"
       )
       .map((card) => card.card.card);
-
+     console.log("Restaurants:", restaurants);
     //roginal show all restro:
     setListOfRestaurants(restaurants);
 
     // Initially show all restaurants
     setFilteredRestaurant(restaurants);
   };
+//online status:
+  const onlineStatus = useOnlineStatus();
 
+ if (!onlineStatus) {
+  return <h1>Looks like you're offline. Please check your connection.</h1>;
+}
   // ✅ Loading screen....
   //condition rendering:
   // if (listOfRestaurants.length === 0) {

@@ -1,16 +1,19 @@
 import { LOGO_URL } from "../utills/constants";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utills/useOnlineStatus";
 const Header = () => {
   
 
   const [btnNameReact,setBtnNameReact]=useState("Login");
-  console.log("header is render");
+   const onlineStatus = useOnlineStatus();
+  //console.log("header is render");
   
   return (
-    <div className="header">
-      <div>
+    <div className="flex">
+      <div className="logo-container">
         <img
-          className="logo"
+          className="w-25"
           src={LOGO_URL}
           alt="Logo"
         />
@@ -18,10 +21,26 @@ const Header = () => {
 
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
+          <li>
+            Online status:{onlineStatus ? "✅":"☒"}
+          </li>
+          <li>
+            <Link to="/">Home</Link>
+            </li>
+          <li>
+            <Link to="/about">About</Link>
+            </li>
+          <li>
+            <Link to="/contact">Contact Us</Link>
+            </li>
+          <li>
+            <Link to="/grocery">Grocery</Link>
+            </li>
+          <li>
+            <Link to="/cart">Cart</Link>
+            </li>
+          
+          
           <button 
           className="login" 
           onClick={() => {

@@ -1,24 +1,35 @@
 import { CDN_URL_URL } from "../utills/constants";
-const RestroCard = (props) => {
+import { Link } from "react-router-dom";
 
-  const { resData } = props;
+const RestroCard = ({ resData }) => {
+  const { info } = resData;
 
   return (
-    <div className="res-card">
+    <Link
+      to={`/restaurants/${info.id}`}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <div className="res-card">
 
-      <img
-        className="res-logo"
-        src={CDN_URL_URL + resData.info.cloudinaryImageId}
-        alt={resData.info.name}
-      />
+        <img
+          className="res-logo"
+          src={CDN_URL_URL + info.cloudinaryImageId}
+          alt={info.name}
+        />
 
-      <h3>{resData.info.name}</h3>
-      <h4>{resData.info.cuisines.join(", ")}</h4>
-      <h4>{resData.info.costForTwo}</h4>
-      <h4>⭐ {resData.info.avgRating} Star </h4>
-      <h4>{resData.info.sla.deliveryTime} min</h4>
+        <h3>{info.name}</h3>
 
-    </div>
+        <h4>{info.cuisines.join(", ")}</h4>
+
+        <h4>{info.costForTwo}</h4>
+
+        <h4>⭐ {info.avgRating} Star</h4>
+
+        <h4>{info.sla.deliveryTime} min</h4>
+
+      </div>
+    </Link>
   );
 };
- export default RestroCard;
+
+export default RestroCard;
